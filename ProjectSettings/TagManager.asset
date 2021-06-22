@@ -8,6 +8,16 @@ TagManager:
   - Enemy
   - Point
   - Coin
+  - Wall
+  - Boss
+  - Sound
+  - HealthPotion
+  - SpeedPotion
+  - DamgePotion
+  - Mov_Plat
+  - MultiplePoint_Plat
+  - InvisibleGround
+  - Turn
   layers:
   - Default
   - TransparentFX

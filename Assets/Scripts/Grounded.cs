@@ -8,6 +8,7 @@ public class Grounded : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+       
         knight = gameObject.GetComponentInParent<Knight>();// Truy xuat duoc cac phan tu trong class Knight
     }
 
@@ -35,7 +36,7 @@ public class Grounded : MonoBehaviour
         if (collision.isTrigger == false)
         {
             knight.grounded = true;
-        }
+        }     
     }
     private void OnTriggerExit2D(Collider2D collision)
     {

@@ -22,6 +22,7 @@ public class TurretAI : MonoBehaviour
     public Transform shootpointL, shootpointR;// Vi tri diem ban trai or phai
                                               // Start is called before the first frame update
     public PointScore pointscore;
+    public SoundManager sm;
     private void Awake()
     {
         anim = gameObject.GetComponent<Animator>();
@@ -32,7 +33,7 @@ public class TurretAI : MonoBehaviour
     }
     void Start()
     {
-        
+        sm = GameObject.FindGameObjectWithTag("Sound").GetComponent<SoundManager>();
     }
    
 
@@ -80,6 +81,7 @@ public class TurretAI : MonoBehaviour
             direction.Normalize(); //Giup vector giu dung huong 
             if (attackright)
             {
+                sm.PlaySounds("shoot_tower");
                 GameObject bulletclone;//Tao ban sau cua vien dan;
                 //Khoi tao tu ban sau cua bullet, vi tri ban, huong xoay
                 bulletclone = Instantiate(bullet, shootpointR.transform.position, shootpointR.transform.rotation) as GameObject;
@@ -88,6 +90,7 @@ public class TurretAI : MonoBehaviour
             }
             if (attackright==false)
             {
+                sm.PlaySounds("shoot_tower");
                 GameObject bulletclone;//Tao ban sau cua vien dan;
                 //Khoi tao tu ban sau cua bullet, vi tri ban, huong xoay
                 bulletclone = Instantiate(bullet, shootpointL.transform.position, shootpointL.transform.rotation) as GameObject;

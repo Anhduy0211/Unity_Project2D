@@ -8,9 +8,11 @@ public class CoinsScore : MonoBehaviour
     public int score;
 
     public PointScore pointscore;
+    public SoundManager sounds;
     void Start()
     {
         pointscore = GameObject.FindGameObjectWithTag("Point").GetComponent<PointScore>();// Important
+        sounds = GameObject.FindGameObjectWithTag("Sound").GetComponent<SoundManager>();
     }
 
     // Update is called once per frame
@@ -22,6 +24,7 @@ public class CoinsScore : MonoBehaviour
     {
         if (collision.isTrigger!=true && collision.CompareTag("Player"))
         {
+            sounds.PlaySounds("coins");
             pointscore.point += score;
             Destroy(gameObject);
         }
