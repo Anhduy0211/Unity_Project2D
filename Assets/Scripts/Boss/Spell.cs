@@ -8,10 +8,11 @@ public class Spell : MonoBehaviour
     private float speed = 5f;
     private float direction;
     private GameObject boss;
-
+    public Knight knight;
     // Start is called before the first frame update
     void Awake()
     {
+        knight = GameObject.FindGameObjectWithTag("Player").GetComponent<Knight>();
         boss = GameObject.Find("Boss");
         direction = -boss.transform.localScale.x;
         Vector2 scale = transform.localScale;
@@ -35,7 +36,17 @@ public class Spell : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            Destroy(gameObject);
+            knight.BeDamged = true;
+            knight.Damged(1);
+            Destroy(gameObject);        
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            knight.BeDamged = false;
+            knight.AvoidDamge();
         }
     }
 }

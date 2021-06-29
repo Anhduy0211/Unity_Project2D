@@ -19,23 +19,38 @@ public class BossMove : MonoBehaviour
     private GameObject fireball;
     public SoundManager sounds;
     public Rigidbody2D mybody;
-    void Awake()
-    {
 
-    }
+    [SerializeField]
+    private GameObject effect;
+
+    public int score;
+    [SerializeField] private GameObject FloatingPoint;
+    PointScore pointScore;
     void Start()
     {
         sounds = GameObject.FindGameObjectWithTag("Sound").GetComponent<SoundManager>();
+        pointScore = GameObject.FindGameObjectWithTag("Point").GetComponent<PointScore>();// Important
         anim = GetComponent<Animator>();
         startPos = transform.localPosition;
         endPos = PosB.localPosition;
         nextPos = endPos;
         StartCoroutine(Spawner());
     }
+
+    void ShowPoint(string text)
+    {
+        if (FloatingPoint)
+        {
+            GameObject prefab = Instantiate(FloatingPoint, transform.position, Quaternion.identity);
+            prefab.GetComponentInChildren<TextMesh>().text = text;
+        }
+    }
     private void Update()
     {
         if (BossHealth <= 0)
         {
+            ShowPoint("+" + score.ToString());
+            pointScore.point += score;
             Die();
         }
     }
@@ -89,11 +104,22 @@ public class BossMove : MonoBehaviour
     }
     public void BeHurted(int pain)
     {
-        BossHealth -= pain;
+        if(BossHealth > pain)
+        {
+            GameObject prefab = Instantiate(FloatingPoint, transform.position, Quaternion.identity);
+            prefab.GetComponentInChildren<TextMesh>().color = Color.red;
+            prefab.GetComponentInChildren<TextMesh>().text = "-" + pain.ToString();
+            BossHealth -= pain;
+        }
+        else
+        {
+            BossHealth -= pain;
+        }       
         //KnockBack(5f, this.transform.position);
     }
     public void Die()
     {
+        Destroy(Instantiate(effect, transform.position, transform.rotation), 0.5f);
         Destroy(this.gameObject);
     }
     public void KnockBack(float Knockpow, Vector2 Distance_knock)

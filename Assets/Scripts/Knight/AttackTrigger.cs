@@ -22,5 +22,9 @@ public class AttackTrigger : MonoBehaviour
         {
             collision.SendMessageUpwards("BeHurted",damge);
         }
+        if (collision.isTrigger == true && collision.CompareTag("Boss"))
+        {
+            collision.SendMessageUpwards("BeHurted", damge);
+        }
     }
 }

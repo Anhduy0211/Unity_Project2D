@@ -72,8 +72,12 @@ public class Enemy : MonoBehaviour
             GameObject prefab = Instantiate(FloatingPoint, transform.position, Quaternion.identity);
             prefab.GetComponentInChildren<TextMesh>().color = Color.red;
             prefab.GetComponentInChildren<TextMesh>().text ="-"+ pain.ToString();
-        }      
-        Enemy_Health -= pain;
+            Enemy_Health -= pain;
+        }
+        else
+        {
+            Enemy_Health -= pain;
+        }
         //KnockBack(5f, this.transform.position);
     }
     public void KnockBack(float Knockpow, Vector2 Distance_knock)
